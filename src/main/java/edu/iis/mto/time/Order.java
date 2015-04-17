@@ -18,10 +18,6 @@ public class Order {
 		systemTime = new SystemTime();
 	}
 
-	public Order(TimeSource systemTime) {
-		orderState = State.CREATED;
-		this.systemTime = systemTime;
-	}
 	
 	public void addItem(OrderItem item) {
 		requireState(State.CREATED, State.SUBMITTED);
@@ -35,7 +31,7 @@ public class Order {
 		requireState(State.CREATED);
 
 		orderState = State.SUBMITTED;
-		subbmitionDate = new DateTime();
+		subbmitionDate = new DateTime(systemTime.currentTimeMillis());
 
 	}
 
@@ -68,6 +64,12 @@ public class Order {
 				+ orderState);
 
 	}
+	
+
+	public void setSystemTime(TimeSource systemTime) {
+		this.systemTime = systemTime;
+	}
+
 
 	public static enum State {
 		CREATED, SUBMITTED, CONFIRMED, REALIZED, CANCELLED

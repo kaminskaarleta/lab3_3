@@ -21,8 +21,9 @@ public class OrderTest {
 	public void test_expiratedOrder_expectedOrderExpiredException() {
 		//Added 25h to current time
 		FakeTime fakeTime = new FakeTime(25*60*60*1000);
-		Order order = new Order(fakeTime);
+		Order order = new Order();
 		order.submit();
+		order.setSystemTime(fakeTime);
 		order.confirm();
 	}
 
